@@ -9,8 +9,10 @@ namespace Ecommerce_ASPDOTNET_MVC.Models
         public int CategoryId { get; set; }
 
         [Required]
+        [MaxLength(20,ErrorMessage ="Max Lenght is 20")]
         public string Name { get; set; }
         [DisplayName("Display Order")]
+        [Range(1,50, ErrorMessage ="Range Must be between 1 to 50")]
         public int DisplayOrder { get; set; }
     }
 }
