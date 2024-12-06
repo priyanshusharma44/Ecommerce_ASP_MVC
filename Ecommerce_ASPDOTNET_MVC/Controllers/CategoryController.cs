@@ -26,8 +26,13 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Name", "Same as the Display Order");
+            }
             if (ModelState.IsValid)
             {
+                
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Category");
