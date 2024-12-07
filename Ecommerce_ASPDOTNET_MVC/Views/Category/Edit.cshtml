@@ -1,26 +1,32 @@
-﻿@model Category
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model Category
 
 <form method="post">
+    <input asp-for="CategoryId" hidden />
     <div class=" border p-3 mt-5 ">
         <div class=" row pb-2">
-            <h2 class="text-primary">Create Category</h2>
-            <hr/> 
+            <h2 class="text-primary">Update Category</h2>
+            <hr />
         </div>
         
         <div class="mb-3">
             <label asp-for="Name"></label>
-            <input asp-for="Name" type="text" class="form-control"/>
+            <input asp-for="Name" type="text" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="DisplayOrder"></label>
-            <input asp-for="DisplayOrder" type="text" class="form-control"/>
+            <input asp-for="DisplayOrder" type="text" class="form-control" />
             <span asp-validation-for="DisplayOrder" class="text-danger"></span>
 
         </div>
         <div class="row">
             <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-primary form-control">Create</button>
+                <button type="submit" class="btn btn-primary form-control">Update</button>
             </div>
             <div class="col-6 col-md-3">
                 <a asp-controller="Category" asp-action="Index" class="btn btn-secondary form-control border ">Back To List</a>
@@ -30,8 +36,9 @@
     </div>
 </form>
 @* client side validation *@
-@section Scripts{
+@section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />
     }
 }
+
