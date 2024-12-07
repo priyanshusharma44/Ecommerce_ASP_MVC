@@ -36,6 +36,7 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
 
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Sucessfully";
                 return RedirectToAction("Index", "Category");
             }
             return View();
@@ -58,6 +59,7 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
 
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Edited Sucessfully";
                 return RedirectToAction("Index", "Category");
             }
             return View();
@@ -82,7 +84,8 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
             }
                 _db.Categories.Remove(obj);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Category");
+            TempData["success"] = "Category Deleted Sucessfully";
+            return RedirectToAction("Index", "Category");
             
            
         }
