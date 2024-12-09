@@ -1,4 +1,4 @@
-using Ecommerce_ASPDOTNET_MVC.Data;
+using Ecommerce_ASPDOTNET_MVC.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_ASPDOTNET_MVC
