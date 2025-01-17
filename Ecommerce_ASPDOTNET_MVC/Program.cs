@@ -1,3 +1,5 @@
+using Ecommerce.DataAccess.Repository;
+using Ecommerce.DataAccess.Repository.IRepository;
 using Ecommerce_ASPDOTNET_MVC.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,8 @@ namespace Ecommerce_ASPDOTNET_MVC
 
             //use ef core (register) and <> = which class 
            builder.Services.AddDbContext<ApplicationDbContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             var app = builder.Build();
 
