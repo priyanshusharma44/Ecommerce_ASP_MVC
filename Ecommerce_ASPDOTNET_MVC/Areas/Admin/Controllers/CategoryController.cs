@@ -3,20 +3,20 @@ using Ecommerce.Models;
 using Ecommerce_ASPDOTNET_MVC.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ecommerce_ASPDOTNET_MVC.Controllers
+namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
 {
-
+    [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository db)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _categoryRepo = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
         public IActionResult Create()
@@ -35,8 +35,8 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
             if (ModelState.IsValid)
             {
 
-                _categoryRepo.Add(obj);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Created Sucessfully";
                 return RedirectToAction("Index", "Category");
             }
@@ -49,7 +49,7 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
             {
                 return NotFound();
             }
-            Category? category = _categoryRepo.Get(u => u.CategoryId == CategoryId);
+            Category? category = _unitOfWork.Category.Get(u => u.CategoryId == CategoryId);
             return View(category);
         }
         [HttpPost]
@@ -58,8 +58,8 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
             if (ModelState.IsValid)
             {
 
-                _categoryRepo.Update(obj);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Edited Sucessfully";
                 return RedirectToAction("Index", "Category");
             }
@@ -72,7 +72,7 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
             {
                 return NotFound();
             }
-            Category? category = _categoryRepo.Get(u => u.CategoryId == CategoryId);
+            Category? category = _unitOfWork.Category.Get(u => u.CategoryId == CategoryId);
             return View(category);
         }
 
@@ -83,12 +83,12 @@ namespace Ecommerce_ASPDOTNET_MVC.Controllers
             {
                 return NotFound();
             }
-                _categoryRepo.Remove(obj);
-                _categoryRepo.Save();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Category Deleted Sucessfully";
             return RedirectToAction("Index", "Category");
-            
-           
+
+
         }
     }
 }
