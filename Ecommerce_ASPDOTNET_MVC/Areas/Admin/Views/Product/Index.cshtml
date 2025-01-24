@@ -1,0 +1,66 @@
+﻿@model List<Product>
+<style>
+    .btn-group {
+        display: flex;
+        justify-content: center; /* Align buttons properly */
+        gap: 10px; /* Add spacing between buttons */
+    }
+
+    .btn {
+        min-width: 120px; /* Set a minimum width for the buttons */
+        padding: 8px 16px; /* Add some padding to buttons to make them more spacious */
+    }
+
+    .table td {
+        vertical-align: middle !important; /* Ensure buttons align vertically */
+    }
+</style>
+<div class="container">
+
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3 class="text-primary">Product List</h3>
+        </div>
+        <div class="col-6 text-end pb-3">
+            <a asp-controller="Product" asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> &nbsp;Create New Product</a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>Id</th>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Author</th>
+                <th>Actions</th> 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr class="text-center">
+                    <td>@obj.Id</td>
+                    <td>@obj.Title</td>
+                    <td>@obj.ISBN</td>
+                    <td>@obj.ListPrice</td>
+                    <td>@obj.Author</td>
+                    <td class="d-flex justify-content-center align-items-center">
+                        <div class="btn-group w-100" role="group">
+                           
+                            <a asp-controller="Product" asp-action="Edit" asp-route-ProductId="@obj.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-controller="Product" asp-action="Delete" asp-route-ProductId="@obj.Id" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
