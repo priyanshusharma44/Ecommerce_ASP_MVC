@@ -4,23 +4,14 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
+namespace Ecommerce.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProductToDb1 : Migration
+    public partial class ProductInitilizationDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Categories",
-                type: "nvarchar(20)",
-                maxLength: 20,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
@@ -60,15 +51,6 @@ namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Categories",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(20)",
-                oldMaxLength: 20);
         }
     }
 }

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
+namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241205081707_SeedingCategoryTable")]
-    partial class SeedingCategoryTable
+    [Migration("20250125154256_CategoryMigration")]
+    partial class CategoryMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Ecommerce_ASPDOTNET_MVC.Models.Category", b =>
+            modelBuilder.Entity("Ecommerce.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -37,7 +37,8 @@ namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("CategoryId");
 
@@ -54,13 +55,13 @@ namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
                         {
                             CategoryId = 2,
                             DisplayOrder = 2,
-                            Name = "Action"
+                            Name = "Drama"
                         },
                         new
                         {
                             CategoryId = 3,
                             DisplayOrder = 3,
-                            Name = "Action"
+                            Name = "Adventure"
                         });
                 });
 #pragma warning restore 612, 618

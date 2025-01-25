@@ -16,8 +16,8 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
-            return View(objProductList);
+            List<Product> objCategoryList = _unitOfWork.Product.GetAll().ToList();
+            return View(objCategoryList);
         }
         public IActionResult Create()
         {
@@ -28,7 +28,7 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Product obj)
         {
-           
+            
             if (ModelState.IsValid)
             {
 
@@ -54,14 +54,14 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Product Edited Sucessfully";
+                _unitOfWork.Product.Update(obj); // Update the product
+                _unitOfWork.Save(); // Save changes
+                TempData["success"] = "Product Edited Successfully";
                 return RedirectToAction("Index", "Product");
             }
             return View();
         }
+
 
         public IActionResult Delete(int? id)
         {

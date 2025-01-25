@@ -57,14 +57,14 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                _unitOfWork.Category.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Category Edited Sucessfully";
+                _unitOfWork.Category.Update(obj); // Update the product
+                _unitOfWork.Save(); // Save changes
+                TempData["success"] = "category Edited Successfully";
                 return RedirectToAction("Index", "Category");
             }
             return View();
         }
+
 
         public IActionResult Delete(int? CategoryId)
         {

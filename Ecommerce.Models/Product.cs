@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -11,29 +12,41 @@ namespace Ecommerce.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string Description { get; set; }
+
         [Required]
         public string ISBN { get; set; }
+
         [Required]
         public string Author { get; set; }
+
+        [Required]
         [Display(Name = "List Price")]
+        [Range(1, 100)]
         public double ListPrice { get; set; }
-        //for multi book acqquiring
-        [Display(Name = "Price for 1-50")]
-        [Range(1,100)]
+
+        [Required]
+        [Display(Name = "Price For 1-50")]
+        [Range(1, 100)]
         public double Price { get; set; }
 
-        //for multi book acqquiring
-        [Display(Name = "Price for 50+")]
+        [Required]
+        [Display(Name = "Price For 50+")]
         [Range(1, 100)]
         public double Price50 { get; set; }
 
-        //for multi book acqquiring
-        [Display(Name = "Price for 100+")]
+        [Required]
+        [Display(Name = "Price For 100+")]
         [Range(1, 100)]
         public double Price100 { get; set; }
+
+        public int CategoryId {  get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 }

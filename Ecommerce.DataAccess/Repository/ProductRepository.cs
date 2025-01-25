@@ -18,11 +18,12 @@ namespace Ecommerce.DataAccess.Repository
         {
             _db = db;
         }
-       
+
 
         public void Update(Product obj)
         {
-           _db.Products.Add(obj);
+            _db.Products.Update(obj); // Use the Update method for updating existing entries
         }
+
     }
 }

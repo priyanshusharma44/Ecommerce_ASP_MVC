@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
+namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250124151737_AddProductToDb1")]
-    partial class AddProductToDb1
+    [Migration("20250125155412_ProductInitilizationDb")]
+    partial class ProductInitilizationDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,13 +55,13 @@ namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Migrations
                         {
                             CategoryId = 2,
                             DisplayOrder = 2,
-                            Name = "Action"
+                            Name = "Drama"
                         },
                         new
                         {
                             CategoryId = 3,
                             DisplayOrder = 3,
-                            Name = "Action"
+                            Name = "Adventure"
                         });
                 });
 
