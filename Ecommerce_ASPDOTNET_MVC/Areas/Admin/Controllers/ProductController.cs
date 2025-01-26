@@ -1,7 +1,9 @@
 ﻿using Ecommerce.DataAccess.Repository.IRepository;
 using Ecommerce.Models;
+using Ecommerce.Models.ViewModels;
 using Ecommerce_ASPDOTNET_MVC.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
 {
@@ -16,28 +18,55 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+
+
             List<Product> objCategoryList = _unitOfWork.Product.GetAll().ToList();
-            return View(objCategoryList);
+
+           
+
+            return View(objCategoryList); 
         }
         public IActionResult Create()
         {
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category
+                .GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.CategoryId.ToString()
+                }),
+                Product = new Product()
+            };
 
-            return View();
+
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM productVM)
         {
             
             if (ModelState.IsValid)
             {
 
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product Created Sucessfully";
                 return RedirectToAction("Index", "Product");
             }
-            return View();
+            else
+            {
+
+                productVM.CategoryList = _unitOfWork.Category
+                .GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.CategoryId.ToString()
+                });
+                return View(productVM);
+            }
+            
 
         }
         public IActionResult Edit(int? id)
