@@ -1,15 +1,12 @@
-﻿using Ecommerce.Models;
-using System;
+﻿// Ecommerce.DataAccess.Repository.IRepository/IProductRepository.cs
+using Ecommerce.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.DataAccess.Repository.IRepository
 {
-    public interface IProductRepository: IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
         void Update(Product obj);
-
+        // Remove the GetAll declaration here
     }
 }

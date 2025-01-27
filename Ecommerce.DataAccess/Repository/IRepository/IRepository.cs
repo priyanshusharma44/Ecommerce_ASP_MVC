@@ -4,20 +4,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Linq.Expressions;
 namespace Ecommerce.DataAccess.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {
-        //T- category or any other model
-        IEnumerable<T> GetAll();
-        //if only one
-        T Get(Expression<Func<T, bool>> filter);
-        //create,remove etc
+        IEnumerable<T> GetAll(string? includeProperties = null); // Single method
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
         void Add(T entity);
-        
-        void Remove(T entity);  
+        void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
-
     }
 }

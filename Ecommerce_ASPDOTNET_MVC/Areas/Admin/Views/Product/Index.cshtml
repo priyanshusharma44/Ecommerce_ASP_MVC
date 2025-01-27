@@ -5,7 +5,7 @@
             <h3 class="text-primary">Product List</h3>
         </div>
         <div class="col-6 text-end pb-3">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
+            <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> &nbsp;Create New Product
             </a>
         </div>
@@ -34,14 +34,15 @@
                     <td>@obj.ISBN</td>
                     <td>@obj.Author</td>
                     <td>@obj.ListPrice</td>
+                    <td>@obj.Category.Name</td>
                     <td></td>
                     <td>
                        <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
-                            <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" 
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id"
                                class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-square"></i> Edit
+                                <i class="bi bi-pencil-square"></i> Upsert
                             </a>
-                            <a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" 
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id"
                                class="btn btn-danger btn-sm">
                                 <i class="bi bi-trash-fill"></i> Delete
                             </a>
