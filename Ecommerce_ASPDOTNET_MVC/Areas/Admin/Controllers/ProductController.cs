@@ -67,10 +67,11 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
-                    if(string.IsNullOrEmpty(productVM.Product.ImageUrl))
+                    if(!string.IsNullOrEmpty(productVM.Product.ImageUrl))
                     {
                         //delete old image
-                        var oldImagePath = Path.Combine(wwwRootPath,productVM.Product.ImageUrl.TrimStart('\\'));
+                        var oldImagePath =
+                            Path.Combine(wwwRootPath,productVM.Product.ImageUrl.TrimStart('\\'));
 
                         if (System.IO.File.Exists(oldImagePath))
                         {
@@ -79,22 +80,22 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
 
                     }
 
-                     if(productVM.Product.Id==0)
-                    {
-                        _unitOfWork.Product.Add(productVM.Product);
-
-                    }
-                    else
-                    {
-                        _unitOfWork.Product.Update(productVM.Product);
-                    }
+                    
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
                     productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
-              
+                if (productVM.Product.Id == 0)
+                {
+                    _unitOfWork.Product.Add(productVM.Product);
+
+                }
+                else
+                {
+                    _unitOfWork.Product.Update(productVM.Product);
+                }  
 
                 _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
@@ -141,6 +142,14 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
 
 
         }
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Product> objCategoryList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new {data= objCategoryList});
+        }
+        #endregion
     }
 }
 
