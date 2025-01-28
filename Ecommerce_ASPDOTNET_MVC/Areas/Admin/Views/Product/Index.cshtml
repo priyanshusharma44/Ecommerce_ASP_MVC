@@ -1,55 +1,79 @@
 ﻿@model List<Product>
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
+
+    #tblData {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 11px;
+    }
+
+        #tblData th {
+
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+            background-color: #55595C;
+            color: white;
+            border-bottom: 2px solid #ddd;
+
+        }
+
+        #tblData td {
+            padding: 10px;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f5f9;
+    }
+
+    .table-primary {
+        background-color: #e3f2fd;
+        color: #0d6efd;
+    }
+
+    .btn-primary {
+        border-radius: 30px;
+    }
+
+</style>
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
             <h3 class="text-primary">Product List</h3>
         </div>
         <div class="col-6 text-end pb-3">
-            <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
+            <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" class="btn btn-primary shadow-sm">
                 <i class="bi bi-plus-circle"></i> &nbsp;Create New Product
             </a>
         </div>
     </div>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr class="text-center">
-                <th>Id</th>
-                <th>Title</th>
-
-                <th>ISBN</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Category</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model.OrderByDescending(u => u.Id))
-            {
-                <tr class="text-center">
-                    <td>@obj.Id</td>
-                    <td>@obj.Title</td>
-
-                    <td>@obj.ISBN</td>
-                    <td>@obj.Author</td>
-                    <td>@obj.ListPrice</td>
-                    <td>@obj.Category.Name</td>
-                    <td></td>
-                    <td>
-                       <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
-                            <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id"
-                               class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-square"></i> Upsert
-                            </a>
-                            <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id"
-                               class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+    <div class="card shadow-lg p-4">
+        <table id="tblData" class="table table-hover table-bordered" style="width:100%;">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Title</th>
+                    <th>ISBN</th>
+                    <th>Price</th>
+                    <th>Author</th>
+                    <th>Category</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+        </table>
+    </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}
