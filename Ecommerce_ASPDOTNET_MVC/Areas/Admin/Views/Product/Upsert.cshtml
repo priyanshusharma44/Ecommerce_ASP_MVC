@@ -8,7 +8,6 @@
             <h2 class="text-primary"> @(Model.Product.Id!=0?"Update":"Create")Product</h2>
             <hr/> 
         </div>
-
         <div class="row">
             <div class="col-10">
                 <div class="mb-3">
@@ -16,6 +15,7 @@
                     <input asp-for="Product.Title" type="text" class="form-control" />
                     <span asp-validation-for="Product.Title" class="text-danger"></span>
                 </div>
+
                 <div class="mb-3">
                     <label asp-for="Product.Description"></label>
                     <textarea asp-for="Product.Description" type="text" class="form-control"></textarea>
