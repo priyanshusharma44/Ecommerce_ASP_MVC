@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
     loadDataTable();
+
+        var successMessage = '@TempData["success"]';
+        if (successMessage) {
+            showToast(successMessage, 'success');
+        }
 });
 
 function loadDataTable() {

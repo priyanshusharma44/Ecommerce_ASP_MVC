@@ -62,13 +62,11 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
 
-                // Handle file upload if there is a new file
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
-                    // Delete old image if exists
                     if (!string.IsNullOrEmpty(productVM.Product.ImageUrl))
                     {
                         var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
@@ -78,7 +76,6 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
                         }
                     }
 
-                    // Save new image
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -86,34 +83,32 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Admin.Controllers
                     productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
 
-                // Add or update the product
                 if (productVM.Product.Id == 0)
                 {
-                    _unitOfWork.Product.Add(productVM.Product); // Add if it's a new product
+                    _unitOfWork.Product.Add(productVM.Product);
+                    TempData["success"] = "Product Created Successfully";
                 }
                 else
                 {
-                    _unitOfWork.Product.Update(productVM.Product); // Update if it's an existing product
+                    _unitOfWork.Product.Update(productVM.Product);
+                    TempData["success"] = "Product Updated Successfully";
                 }
 
-                _unitOfWork.Save(); // Save changes
-                TempData["success"] = productVM.Product.Id == 0 ? "Product Created Successfully" : "Product Updated Successfully";
-                return RedirectToAction("Index", "Product");
+                _unitOfWork.Save();
+                return RedirectToAction("Index");
             }
-            else
-            {
-                // If the model is not valid, reload categories for the dropdown
-                productVM.CategoryList = _unitOfWork.Category
-                    .GetAll()
-                    .Select(u => new SelectListItem
-                    {
-                        Text = u.Name,
-                        Value = u.CategoryId.ToString()
-                    });
 
-                return View(productVM);
-            }
+            productVM.CategoryList = _unitOfWork.Category
+                .GetAll()
+                .Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.CategoryId.ToString()
+                });
+
+            return View(productVM);
         }
+
         #region API CALLS
         [HttpGet]
         public IActionResult GetAll()
