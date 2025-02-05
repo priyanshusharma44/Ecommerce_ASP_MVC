@@ -25,6 +25,12 @@ namespace Ecommerce_ASPDOTNET_MVC.Areas.Customer.Controllers
             return View(ProductList);
         }
 
+        public IActionResult Details(int productId)
+        {
+           Product product = _unitOfWork.Product.Get(u=>u.Id== productId, includeProperties: "Category");
+            return View(product);
+        }
+
 
         public IActionResult Privacy()
         {

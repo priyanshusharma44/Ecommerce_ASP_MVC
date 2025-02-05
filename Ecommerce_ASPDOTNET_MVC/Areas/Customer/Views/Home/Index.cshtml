@@ -1,208 +1,32 @@
 ﻿@model IEnumerable<Product>
 
-    <style>
-        :root {
-            --primary: #2A4B7C;
-            --secondary: #5B7FB5;
-            --accent: #FF9F1C;
-            --light: #F8F9FA;
-            --dark: #1A2A3A;
-        }
-
-        .hero-section {
-            background: linear-gradient(rgba(42,75,124,0.9), rgba(42,75,124,0.8)), url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6') center/cover;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .category-card {
-            transition: all 0.3s ease;
-            border: none;
-            overflow: hidden;
-        }
-
-            .category-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            }
-
-        .discount-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-        }
-
-        .price-tag {
-            background: var(--primary);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 0.5rem;
-        }
-
-        .book-card {
-            transition: all 0.3s ease;
-            border: none;
-            overflow: hidden;
-        }
-
-            .book-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            }
-
-        .hover-zoom {
-            transition: transform 0.3s ease;
-            overflow: hidden;
-        }
-
-            .hover-zoom img {
-                transition: transform 0.3s ease;
-            }
-
-            .hover-zoom:hover img {
-                transform: scale(1.05);
-            }
-    </style>
-</head>
-<body>
-
-    <!-- Hero Section -->
-    <section class="hero-section text-white">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="display-3 fw-bold mb-4">Discover Your Next Great Read</h1>
-                    <p class="lead mb-4">Explore our curated collection of bestsellers, new releases, and timeless classics</p>
-                    <a href="#featured" class="btn btn-light btn-lg px-5 py-3">Browse Collection</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Categories -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5 fw-bold">Popular Categories</h2>
-            <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="category-card card h-100 text-center p-4">
-                        <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
-                        <h5>Fiction</h5>
-                        <p class="text-muted small">Explore imaginary worlds</p>
-                    </div>
-                </div>
-                <!-- Add other categories -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Products -->
-    <section id="featured" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 fw-bold">Featured Books</h2>
-            @if (Model != null && Model.Any())
-            {
-                <div class="row g-4">
-                    @foreach (var product in Model)
-                    {
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="book-card card h-100">
-                                <div class="hover-zoom position-relative">
-                                    @if (product.ListPrice > product.Price)
-                                    {
-                                        <div class="discount-badge">
-                                            Save @((int)(100 - (product.Price / product.ListPrice * 100)))%
-                                        </div>
-                                    }
-                                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Title" style="height: 350px; object-fit: cover;">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">@product.Title</h5>
-                                    <p class="text-muted small mb-2">@product.Author</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h5 text-primary">$@product.Price.ToString("0.00")</span>
-                                            @if (product.ListPrice > product.Price)
-                                            {
-                                                <del class="text-muted small ms-2">$@product.ListPrice.ToString("0.00")</del>
-                                            }
-                                        </div>
-                                        <button class="btn btn-primary btn-sm rounded-circle">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+<div class="row pb-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1">
+                    <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                        <img src="@product.ImageUrl" class="card-img-top rounded" alt="Product Image" />
+                        <div class="card-body pb-0">
+                           <p class="card-title h5 text-dark opacity-75 text-uppercase text-center"><b>@product.Title</b></p>
+                           <p class="card-title text-warning text-center">By <b>@product.Author</b></p>
+                           
                         </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="text-center py-5">
-                    <div class="h1 text-muted mb-3"><i class="fas fa-book-open"></i></div>
-                    <p class="lead text-muted">New arrivals coming soon!</p>
-                </div>
-            }
-        </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="py-5 bg-dark text-white">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4 text-center">
-                    <i class="fas fa-shipping-fast fa-3x mb-3 text-primary"></i>
-                    <h5>Free Shipping</h5>
-                    <p class="small">On orders over $50</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <i class="fas fa-undo fa-3x mb-3 text-primary"></i>
-                    <h5>Easy Returns</h5>
-                    <p class="small">30-day return policy</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <i class="fas fa-lock fa-3x mb-3 text-primary"></i>
-                    <h5>Secure Payment</h5>
-                    <p class="small">100% secure checkout</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-light py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <h5>BookHeaven</h5>
-                    <p class="text-muted small">Your gateway to literary excellence</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-decoration-none text-muted">About Us</a></li>
-                        <li><a href="#" class="text-decoration-none text-muted">Contact</a></li>
-                        <li><a href="#" class="text-decoration-none text-muted">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Connect</h5>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-muted"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        <div class="card-body pb-0">
+                            <h6 class=" text-dark text-opacity-75 text-uppercase text-center mb-0">Listt Price:<span class="text-decoration-line-through">@product.ListPrice.ToString("c")</span></h6>
+                        </div>
+                        <div class="card-body pb-0">
+                            <h6 class=" text-dark text-opacity-75 text-uppercase text-center">As low as: <span>@product.Price100.ToString("c")</span></h6>
+                        </div>
+                    </div>
+                    <div>
+                        <a asp-action="Details"
+                        asp-route-productId="@product.Id"
+                        class="btn btn-primary bg-gradient border-0 form-control">Details</a>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    }
+</div> 

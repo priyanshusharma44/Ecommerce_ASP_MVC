@@ -6,7 +6,6 @@
             showToast(successMessage, 'success');
         }
 });
-
 function loadDataTable() {
     $('#tblData').DataTable({
         "ajax": {
@@ -47,7 +46,6 @@ function loadDataTable() {
         }
     });
 }
-
 function deleteProduct(id) {
     // Define the URL for the delete request
     const url = `/admin/product/delete/${id}`;

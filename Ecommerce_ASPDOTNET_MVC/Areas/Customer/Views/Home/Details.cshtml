@@ -1,0 +1,175 @@
+﻿@model Product
+<form method="post">
+    <div class="card shadow-lg border-0 mb-4 overflow-hidden">
+        <div class="card-header bg-primary bg-gradient text-light py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="row align-items-center">
+                <div class="col-12 text-center">
+                    <h1 class="text-white text-uppercase fw-bold display-6">@Model.Title</h1>
+                    <p class="text-white-50 mb-0 fs-5">by <span class="fw-semibold">@Model.Author</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-5">
+            <div class="row">
+                <div class="col-6 col-md-2 pb-1">
+                    <a asp-action="Index" class="btn btn-outline-light bg-gradient fw-semibold btn-sm text-uppercase">
+                        <i class="bi bi-arrow-left me-2"></i>Back
+                    </a>
+                </div>
+            </div>
+
+            <div class="row g-5">
+                <!-- Product Image -->
+                <div class="col-12 col-lg-4 text-center">
+                    <div class="position-relative overflow-hidden rounded-4 shadow-lg hover-scale">
+                        <img src="@Model.ImageUrl" class="img-fluid rounded-3 product-image" alt="@Model.Title">
+                        <div class="category-badge">
+                            <span class="badge bg-dark bg-opacity-75 px-3 py-2 rounded-pill fs-6">@Model.Category.Name</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-12 col-lg-8">
+                    <div class="ps-lg-4">
+                        <!-- Pricing Section -->
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <h2 class="text-danger fw-bold mb-0">@Model.Price.ToString("c")</h2>
+                                <span class="text-muted text-decoration-line-through fs-5">@Model.ListPrice.ToString("c")</span>
+                                <span class="badge bg-success bg-opacity-25 text-success fs-6">SAVE @((Model.ListPrice - Model.Price).ToString("c"))</span>
+                            </div>
+
+                            <div class="bg-light rounded-4 p-4 mb-4">
+                                <h5 class="text-dark mb-3">Bulk Pricing:</h5>
+                                <div class="row g-3">
+                                    <div class="col-4">
+                                        <div class="p-3 text-center border-end">
+                                            <div class="text-muted small">1-50 units</div>
+                                            <div class="fw-bold text-primary fs-5">@Model.Price.ToString("c")</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-3 text-center border-end">
+                                            <div class="text-muted small">51-100 units</div>
+                                            <div class="fw-bold text-primary fs-5">@Model.Price50.ToString("c")</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-3 text-center">
+                                            <div class="text-muted small">100+ units</div>
+                                            <div class="fw-bold text-primary fs-5">@Model.Price100.ToString("c")</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Info -->
+                        <div class="mb-4">
+                            <div class="d-flex gap-4 mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-upc-scan text-muted"></i>
+                                    <span class="text-dark fw-semibold">ISBN:</span>
+                                    <span class="text-muted">@Model.ISBN</span>
+                                </div>
+                            </div>
+
+                            <p class="text-secondary lh-lg mb-4" style="text-align: justify;">@Html.Raw(Model.Description)</p>
+                        </div>
+
+                        <!-- Add to Cart -->
+                        <div class="row g-3 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <div class="input-group border rounded-3">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="bi bi-dash-lg"></i>
+                                    </button>
+                                    <input type="number" value="1" class="form-control text-center border-0"
+                                           min="1" max="100" aria-label="Quantity">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold" disabled>
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart (Coming Soon)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Product Features -->
+                        <div class="mt-4 pt-3 border-top">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                                            <i class="bi bi-truck fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-muted small">Delivery</div>
+                                            <div class="fw-semibold">2-3 Days</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="icon-box bg-success bg-opacity-10 text-success">
+                                            <i class="bi bi-arrow-repeat fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-muted small">Returns</div>
+                                            <div class="fw-semibold">30 Days</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    .hover-scale {
+        transition: transform 0.3s ease;
+    }
+
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+
+    .product-image {
+        border: 3px solid rgba(255,255,255,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .category-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+    }
+
+    .icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .input-group button {
+        background: #f8f9fa;
+        padding: 0.75rem 1rem;
+    }
+
+    .input-group input {
+        background: #fff;
+        font-weight: 600;
+    }
+</style>
