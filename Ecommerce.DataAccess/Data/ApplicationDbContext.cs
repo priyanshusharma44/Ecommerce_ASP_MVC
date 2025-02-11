@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Ecommerce.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -13,6 +14,7 @@ namespace Ecommerce_ASPDOTNET_MVC.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // Seeding Categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, Name = "Action", DisplayOrder = 1 },
