@@ -18,12 +18,24 @@
     <style>
         .navbar-brand {
             margin-left: 20px;
+
+           
+        }
+
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1050;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
         }
 
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  bg-primary border-bottom box-shadow mb-3 ">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark position-fixed w-100  bg-primary border-bottom box-shadow mb-3 ">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookHeaven</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -40,25 +52,29 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Content Management
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li class="nav-item">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li class="nav-item">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                            </li>
-                           
-                           
-                           
-                        </ul>
+                      @if (User.IsInRole(SD.Role_Admin))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Content Management
+                            </a>
 
-                    </li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                </li>
 
+
+
+                            </ul>
+
+
+                        </li>
+                    }
                 </ul>
                 <partial name="_LoginPartial"/>
             </div>
@@ -72,8 +88,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
+
+    
+    <footer class="border-top footer text-muted position-fixed w-100 bg-dark  " style="background-color:#55595C;">
+        <div class="container text-center text-white">
             &copy; 2024 <i class="bi bi-balloon-heart-fill"></i> By Priyanshu
         </div>
     </footer>

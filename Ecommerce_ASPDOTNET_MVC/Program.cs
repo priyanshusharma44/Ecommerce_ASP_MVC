@@ -20,10 +20,20 @@ namespace Ecommerce_ASPDOTNET_MVC
             //use ef core (register) and <> = which class 
            builder.Services.AddDbContext<ApplicationDbContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-           builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+           builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IEmailSender,EmailSender>();
+
+
+            builder.Services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = $"/Identity/Account/Login";
+                option.LogoutPath = $"/Identity/Account/Logout";
+                option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
 
             var app = builder.Build();
 

@@ -4,64 +4,194 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    .register-container {
+        background: #f8f9fa;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
+    .auth-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        overflow: hidden;
+        margin: 2rem auto;
+    }
+
+    .auth-header {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .auth-form {
+        padding: 2rem;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+    }
+
+    .form-control {
+        padding-left: 40px !important;
+        height: 50px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+    .role-select {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+        .role-select:focus {
+            border-color: #6366f1;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+    .btn-register {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-register:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+    .external-auth-section {
+        background: #f8fafc;
+        padding: 2rem;
+        border-left: 1px solid #e2e8f0;
+    }
+
+    .external-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+</style>
+
+<div class="register-container ">
+    <div class="container mt-4 position-fixed ">
+        <div class="auth-card">
+            <div class="row g-0">
+                <!-- Registration Form -->
+                <div class="col-lg-6">
+                    <div class="auth-form">
+                        <div class="mb-4">
+                            <h2 class="h3 font-weight-bold text-center mb-3">Create Your Account</h2>
+                            <p class="text-muted text-center">Join our community to get started</p>
                         </div>
-                    </form>
-                }
-            }
-        </section>
+
+                        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                            <!-- Email Input -->
+                            <div class="mb-3 position-relative">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username"
+                                       placeholder="Enter your email" />
+                                <span asp-validation-for="Input.Email" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <!-- Password Input -->
+                            <div class="mb-3 position-relative">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input asp-for="Input.Password" class="form-control"
+                                       placeholder="Create a password" />
+                                <span asp-validation-for="Input.Password" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="mb-4 position-relative">
+                                <i class="fas fa-check-circle input-icon"></i>
+                                <input asp-for="Input.ConfirmPassword" class="form-control"
+                                       placeholder="Confirm your password" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <!-- Role Selection -->
+                            <div class="mb-4">
+                                <label class="form-label text-muted small mb-2">Select Role</label>
+                                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList"
+                                        class="role-select"></select>
+                            </div>
+
+                            <button id="registerSubmit" type="submit"
+                                    class="btn-register w-100 mb-3">
+                                Create Account
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- External Auth Section -->
+                <div class="col-lg-6 external-auth-section">
+                    <div class="h-100 d-flex flex-column justify-content-center">
+                        <h3 class="h5 text-center mb-4">Sign up with</h3>
+
+                        @if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div class="alert alert-info">
+                                <p class="mb-0 small">
+                                    No external authentication services configured. See this
+                                    <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="alert-link">
+                                        configuration guide
+                                    </a>.
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" method="post" class="text-center">
+                                <div class="d-grid gap-2">
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit" class="external-btn btn btn-light"
+                                                name="provider" value="@provider.Name">
+                                            <i class="fab fa-@provider.DisplayName.ToLower() me-2"></i>
+                                            Continue with @provider.DisplayName
+                                        </button>
+                                    }
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 }
