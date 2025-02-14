@@ -118,6 +118,22 @@
             border-color: #6366f1;
             color: #6366f1;
         }
+
+    .btn-toggle-password {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #64748b;
+    }
+
+        .btn-toggle-password:hover {
+            color: #6366f1;
+        }
+
 </style>
 
 <div class="login-container">
@@ -143,13 +159,17 @@
                                 <span asp-validation-for="Input.Email" class="text-danger small d-block mt-1"></span>
                             </div>
 
-                            <!-- Password Input -->
+                            <!-- Password Input with Eye Toggle -->
                             <div class="mb-3 position-relative">
                                 <i class="fas fa-lock input-icon"></i>
-                                <input asp-for="Input.Password" class="form-control"
-                                       placeholder="Enter your password" />
+                                <input asp-for="Input.Password" class="form-control password-field"
+                                       placeholder="Enter your password" type="password" id="password" />
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword()">
+                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                </button>
                                 <span asp-validation-for="Input.Password" class="text-danger small d-block mt-1"></span>
                             </div>
+
 
                             <!-- Remember Me Checkbox -->
                             <div class="mb-4 form-check custom-checkbox">
@@ -217,3 +237,19 @@
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 }
+<script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password");
+        var toggleIcon = document.getElementById("toggleIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
+    }
+</script>

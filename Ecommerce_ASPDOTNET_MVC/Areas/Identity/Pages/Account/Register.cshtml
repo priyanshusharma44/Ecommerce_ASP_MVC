@@ -7,7 +7,7 @@
 <style>
     .register-container {
         background: #f8f9fa;
-        min-height: 100vh;
+        min-height: 50vh;
         display: flex;
         align-items: center;
     }
@@ -28,7 +28,7 @@
     }
 
     .auth-form {
-        padding: 2rem;
+        padding: 1.5rem;
     }
 
     .input-icon {
@@ -96,10 +96,20 @@
         font-weight: 500;
         transition: all 0.3s ease;
     }
+
+    .toggle-password {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #64748b;
+    }
+
 </style>
 
 <div class="register-container ">
-    <div class="container mt-4 position-fixed ">
+    <div class="container " style="margin-top:100px;">
         <div class="auth-card">
             <div class="row g-0">
                 <!-- Registration Form -->
@@ -121,20 +131,66 @@
                                 <span asp-validation-for="Input.Email" class="text-danger small d-block mt-1"></span>
                             </div>
 
-                            <!-- Password Input -->
+                            <!-- Password Input with Eye Icon -->
                             <div class="mb-3 position-relative">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input asp-for="Input.Password" class="form-control"
-                                       placeholder="Create a password" />
+                                <i class="bi bi-lock input-icon"></i>
+                                <input asp-for="Input.Password" class="form-control password-field" type="password"
+                                       placeholder="Create a password" id="passwordInput" />
+                                <i class="bi bi-eye-slash toggle-password" data-target="passwordInput"></i>
                                 <span asp-validation-for="Input.Password" class="text-danger small d-block mt-1"></span>
                             </div>
 
-                            <!-- Confirm Password -->
+                            <!-- Confirm Password with Eye Icon -->
                             <div class="mb-4 position-relative">
-                                <i class="fas fa-check-circle input-icon"></i>
-                                <input asp-for="Input.ConfirmPassword" class="form-control"
-                                       placeholder="Confirm your password" />
+                                <i class="bi bi-shield-lock input-icon"></i>
+                                <input asp-for="Input.ConfirmPassword" class="form-control password-field" type="password"
+                                       placeholder="Confirm your password" id="confirmPasswordInput" />
+                                <i class="bi bi-eye-slash toggle-password" data-target="confirmPasswordInput"></i>
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+
+                            <!-- Name Input -->
+                            <div class="mb-3 position-relative">
+                                <i class="bi bi-person input-icon"></i>
+                                <input asp-for="Input.Name" class="form-control" autocomplete="username"
+                                       placeholder="Enter your Name" />
+                                <span asp-validation-for="Input.Name" class="text-danger small d-block mt-1"></span>
+                            </div>
+                                                        <!-- state -->
+                            <div class="mb-4 position-relative">
+                                <i class="bi bi-geo-alt input-icon"></i>
+                                <input asp-for="Input.State" class="form-control"
+                                       placeholder="Your State Name" />
+                                <span asp-validation-for="Input.State" class="text-danger small d-block mt-1"></span>
+                            </div>
+                                                        <!-- City -->
+                            <div class="mb-4 position-relative">
+                                <i class="bi bi-buildings input-icon"></i>
+                                <input asp-for="Input.City" class="form-control"
+                                       placeholder="Enter your City" />
+                                <span asp-validation-for="Input.City" class="text-danger small d-block mt-1"></span>
+                            </div>
+                                                        <!-- Phone Number -->
+                            <div class="mb-4 position-relative">
+                                <i class="bi bi-telephone input-icon"></i>
+                                <input asp-for="Input.PhoneNumber" class="form-control"
+                                       placeholder="Enter your Phone Number" />
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger small d-block mt-1"></span>
+                            </div>
+                            <!-- street Address -->
+                            <div class="mb-4 position-relative">
+                                <i class="bi bi-house input-icon"></i>
+                                <input asp-for="Input.StreetAddress" class="form-control"
+                                       placeholder="Enter your Street Address" />
+                                <span asp-validation-for="Input.StreetAddress" class="text-danger small d-block mt-1"></span>
+                            </div>
+                            <!-- POstal  Code -->
+                            <div class="mb-4 position-relative">
+                                <i class="bi bi-mailbox input-icon"></i>
+                                <input asp-for="Input.PostalCode" class="form-control"
+                                       placeholder="Enter your Postal Code" />
+                                <span asp-validation-for="Input.PostalCode" class="text-danger small d-block mt-1"></span>
                             </div>
 
                             <!-- Role Selection -->
@@ -195,3 +251,21 @@
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".toggle-password").forEach(function (icon) {
+            icon.addEventListener("click", function () {
+                let targetId = this.getAttribute("data-target");
+                let targetInput = document.getElementById(targetId);
+
+                if (targetInput.type === "password") {
+                    targetInput.type = "text";
+                    this.classList.replace("bi-eye-slash", "bi-eye");
+                } else {
+                    targetInput.type = "password";
+                    this.classList.replace("bi-eye", "bi-eye-slash");
+                }
+            });
+        });
+    });
+</script>
