@@ -1,0 +1,89 @@
+﻿
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
+
+    #tblData {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 11px;
+    }
+
+        #tblData th {
+
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+            background-color: #55595C;
+            color: white;
+            border-bottom: 2px solid #ddd;
+
+        }
+
+        #tblData td {
+            padding: 10px;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f5f9;
+    }
+
+    .table-primary {
+        background-color: #e3f2fd;
+        color: #0d6efd;
+    }
+
+    .btn-primary {
+        border-radius: 30px;
+    }
+
+</style>
+<div class="container " style="margin-top:100px;">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3 class="text-primary">Company List</h3>
+        </div>
+        <div class="col-6 text-end pb-3">
+            <a asp-area="Admin" asp-controller="Company" asp-action="Upsert" class="btn btn-primary shadow-sm">
+                <i class="bi bi-plus-circle"></i> &nbsp;Create New Company
+            </a>
+
+
+        </div>
+    </div>
+
+    <div class="card shadow-lg p-4">
+        <table id="tblData" class="table table-hover table-bordered" style="width:100%;">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Phone Number</th>
+                    <th></th>
+                    
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/company.js"></script>
+}
+<!-- Toastr CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

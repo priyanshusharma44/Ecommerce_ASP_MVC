@@ -4,6 +4,7 @@ using Ecommerce_ASPDOTNET_MVC.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250216084239_CompanyModel")]
+    partial class CompanyModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,138 +96,6 @@ namespace Ecommerce.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companys");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Kathmandu",
-                            Name = "Tech Innovators",
-                            PhoneNumber = "9841234567",
-                            PostalCode = "44600",
-                            Street = "Tech Lane",
-                            StreetAddress = "123 Tech Street"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Pokhara",
-                            Name = "Smart Solutions",
-                            PhoneNumber = "9856789102",
-                            PostalCode = "33700",
-                            Street = "Innovation Road",
-                            StreetAddress = "456 IT Park"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Biratnagar",
-                            Name = "Future Enterprises",
-                            PhoneNumber = "9812345678",
-                            PostalCode = "56600",
-                            Street = "Enterprise Road",
-                            StreetAddress = "789 Business Avenue"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            City = "Lalitpur",
-                            Name = "NextGen Technologies",
-                            PhoneNumber = "9801122334",
-                            PostalCode = "44700",
-                            Street = "Machine Learning St",
-                            StreetAddress = "101 AI Boulevard"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            City = "Bhaktapur",
-                            Name = "Cloud Solutions",
-                            PhoneNumber = "9822233445",
-                            PostalCode = "44800",
-                            Street = "Virtual Way",
-                            StreetAddress = "202 Cloud Drive"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            City = "Chitwan",
-                            Name = "Digital Horizons",
-                            PhoneNumber = "9845566778",
-                            PostalCode = "44200",
-                            Street = "Web Innovation Road",
-                            StreetAddress = "303 Cyber Street"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            City = "Dharan",
-                            Name = "IT Hub Nepal",
-                            PhoneNumber = "9867788990",
-                            PostalCode = "56700",
-                            Street = "Tech Park Lane",
-                            StreetAddress = "404 Silicon Valley"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            City = "Hetauda",
-                            Name = "ByteCode Solutions",
-                            PhoneNumber = "9811122334",
-                            PostalCode = "44107",
-                            Street = "Programming Street",
-                            StreetAddress = "505 Software Avenue"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            City = "Butwal",
-                            Name = "AI Revolution",
-                            PhoneNumber = "9854455667",
-                            PostalCode = "44500",
-                            Street = "Deep Learning Lane",
-                            StreetAddress = "606 Neural Street"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            City = "Damak",
-                            Name = "Quantum Computing Ltd.",
-                            PhoneNumber = "9843344556",
-                            PostalCode = "57300",
-                            Street = "AI Research Ave",
-                            StreetAddress = "707 Quantum Road"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            City = "Janakpur",
-                            Name = "Innovate Nepal",
-                            PhoneNumber = "9862233445",
-                            PostalCode = "45600",
-                            Street = "Startup Avenue",
-                            StreetAddress = "808 Future Street"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            City = "Birgunj",
-                            Name = "Cyber Security Experts",
-                            PhoneNumber = "9813344556",
-                            PostalCode = "44300",
-                            Street = "Encryption Lane",
-                            StreetAddress = "909 Firewall Road"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            City = "Nepalgunj",
-                            Name = "E-Commerce Nepal",
-                            PhoneNumber = "9846677889",
-                            PostalCode = "44610",
-                            Street = "Online Store Avenue",
-                            StreetAddress = "1010 Shopping Plaza"
-                        });
                 });
 
             modelBuilder.Entity("Ecommerce.Models.Product", b =>

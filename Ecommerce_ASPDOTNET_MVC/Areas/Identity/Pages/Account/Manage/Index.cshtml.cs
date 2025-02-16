@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce_ASPDOTNET_MVC.Areas.Identity.Pages.Account.Manage
-{
+{ 
     public class IndexModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
